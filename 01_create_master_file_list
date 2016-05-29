@@ -1,0 +1,6 @@
+###
+### run where pwd is "Pictures - Charlie Archives - October 2015" ###
+### find . -type f  >> ../../comstock_notes/fileList_20160519.txt ###
+###
+### echo "###" > ../../comstock_notes/fileList_20160519.txt; echo "### run where pwd is \"Pictures - Charlie Archives - October 2015\" ###" >> ../../comstock_notes/fileList_20160519.txt; echo "### find . -type f  >> ../../comstock_notes/fileList_20160519.txt ###"  >> ../../comstock_notes/fileList_20160519.txt; echo "###"  >> ../../comstock_notes/fileList_20160519.txt; echo "###"  >> ../../comstock_notes/fileList_20160519.txt; echo "###"  >> ../../comstock_notes/fileList_20160519.txt; find . -type f  >> ../../comstock_notes/fileList_20160519.txt ; less ../../comstock_notes/fileList_20160519.txt
+###
