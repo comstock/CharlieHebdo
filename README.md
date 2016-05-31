@@ -5,12 +5,12 @@ scripts used to process the CH collection for DRS depositing
 
 # what data would you need to pass to and return from a module?
 
-* input filename prefix
-* input filename suffix
-* input filename path
-* destination sRGB profile path and name
+* input filename prefix (newNameStub)
+* input filename suffix (file_ext)
+* input filename path (copypath)
+* destination sRGB profile path and name (srgb_link)
 * path where you would write to and call your link (input-icc-TO-output-icc) profile
-* path where you would write your output file
+* path where you would write your output file (copypath)
 
 # Using ARGYLL software to perform a profile-to-profile conversion. #
 
