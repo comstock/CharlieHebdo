@@ -4,16 +4,15 @@ DIR="/home/comstock/images/icc/"
 LIST=$DIR"icc_tiffs.txt"
 
 find $DIR -name *.tif > $LIST
-#cat  $LIST
-EXIFOUTPUT=$DIR"exifoutput.txt"
 
 while read LINE
 do
-    exiftool $LINE | grep "Profile Description" > $EXIFOUTPUT
-    if [ ! -z $EXIFOUTPUT ]
-	then echo "No Profile in "$LINE
-    elif [! -n $EXIFOUTPUT ]
-	then echo $LINE $EXIFOUTPUT
-    fi
+    exiftool -icc_profile -b -w icc $LINE
+##
+# NOTES
+#
+# If FNAME.icc exists, perform profile to profile conversion
+#
+# Else if FNAME.icc does not exist, embed sRGB profile
 
 done<$LIST
