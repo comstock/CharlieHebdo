@@ -8,11 +8,11 @@ find $DIR -name *.tif > $LIST
 while read LINE
 do
     exiftool -icc_profile -b -w icc $LINE
-##
-# NOTES
-#
-# If FNAME.icc exists, perform profile to profile conversion
-#
-# Else if FNAME.icc does not exist, embed sRGB profile
-
-done<$LIST
+    ICCFILENAME=`sed 's/tif$/icc$/' $LINE`
+    if [ -e $ICCFILENAME ]; then
+	echo "WORKS"
+    else
+	echo "NOPE"
+    fi
+    echo "ICC FNAME : "$ICCFILENAME
+done < $LIST
