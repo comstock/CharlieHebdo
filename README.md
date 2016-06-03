@@ -1,6 +1,28 @@
 # CharlieHebdo
 scripts used to process the CH collection for DRS depositing
 
+1) create a list of all files in CH filesystem
+2) run program that...
+* finds the filetypes you plan to move to DRS
+* creates a drs staging area for the files
+* generates drs-friendly folder and filenames
+* generates a list of orig paths + filenames and new paths + filenames (so archivists can trace deposited to original files)
+* performs some format validation
+* generates a list of all files not processed for deposit, because they fail to meet our target criteria (e.g., only jpgs, tiffs, and pngs).
+* generates a list of all files that fail validation and are therefore not copied to drs staging area.
+* copies over original file to staging area within "master" directory in case these can be deposited.
+
+3) run imperfect script to embed original filenames in exif metadata of the copied files (script fails for small number of files)
+
+4) run script that generates TIFF files from all of the copied image files and deletes the non-TIFF copy from staging area
+
+* maybe re-run exiftool origFileName script on TIFFs, in case the failures were PNG-specifc
+
+5) run script that copies all consent forms over to drs staging area
+* revise script to create "license" folders within each donor folder, and to deposit the licenses w/in.
+
+======
+
 # Notes on icc profile script
 
 # what data would you need to pass to and return from a module?
