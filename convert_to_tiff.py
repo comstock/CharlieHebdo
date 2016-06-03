@@ -48,4 +48,3 @@ for line in f_source_data:
             print e2
     else:
         print "ELSE"
-
