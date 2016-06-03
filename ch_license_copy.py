@@ -14,11 +14,11 @@ def captureRootDir(linefromfile):
 def main():
 ##    dir_list = "ch_orig_pict_dir_list.txt"
     dir_list = "test_files_list.txt"
-    error_log = data_source + "consent_copy_error_log.txt"
+
     drs_staging_path = "/run/user/1000/gvfs/smb-share:server=pentos-smb.ad.hcl.harvard.edu,share=digilab/TEST/COMSTOCK/CharlieHebdo/drs_staging/"
     data_source = "/run/user/1000/gvfs/smb-share:server=pentos-smb.ad.hcl.harvard.edu,share=digilab/TEST/COMSTOCK/CharlieHebdo/comstock_notes/scripts/scripted_reports/"
     consent_docs_root = "/run/user/1000/gvfs/smb-share:server=pentos-smb.ad.hcl.harvard.edu,share=digilab/TEST/COMSTOCK/CharlieHebdo/CH_round_3/Pictures - Charlie Archives - October 2015/"
-    
+    error_log = data_source + "consent_copy_error_log.txt"
     dirlist_path = data_source + dir_list #; print dirlist_path
 
     f_dirlist_path = open(dirlist_path,'r')
@@ -37,13 +37,15 @@ def main():
                 origname = re.sub(".*(\/.*\.[a-zA-Z]{3,4})$","\g<1>",line) ; print "ORIG NAME: " + origname
                 newdirvalue = captureRootDir(line)
                 newdirvalue = newdirvalue +"/"
-                dest =  drs_staging_path + newdirvalue 
+                dest =  drs_staging_path + "license/" + newdirvalue
+                if not os.path.exists(dest):
+                    os.makedirs(dest)            
                 print trimline + "\t" + dest + "\n"
-                try:
-                    shutil.copy2(trimline,newdirvalue)
-                except:
-                    error = "ERROR copying" + timeline + "\t" + newdirvalue
-                    f_error_log.write(error)
+##                try:
+##                    shutil.copy2(trimline,newdirvalue)
+##                except:
+##                    error = "ERROR copying" + timeline + "\t" + newdirvalue
+##                    f_error_log.write(error)
         lastOne = thisOne
                 
     
