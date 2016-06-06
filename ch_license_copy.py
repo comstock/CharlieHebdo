@@ -15,7 +15,7 @@ def main():
 ##    dir_list = "ch_orig_pict_dir_list.txt"
     dir_list = "test_files_list.txt"
 
-    drs_staging_path = "/run/user/1000/gvfs/smb-share:server=pentos-smb.ad.hcl.harvard.edu,share=digilab/TEST/COMSTOCK/CharlieHebdo/drs_staging/"
+    drs_staging_path = "/run/user/1000/gvfs/smb-share:server=pentos-smb.ad.hcl.harvard.edu,share=digilab/TEST/COMSTOCK/CharlieHebdo/test_drs_staging/"
     data_source = "/run/user/1000/gvfs/smb-share:server=pentos-smb.ad.hcl.harvard.edu,share=digilab/TEST/COMSTOCK/CharlieHebdo/comstock_notes/scripts/scripted_reports/"
     consent_docs_root = "/run/user/1000/gvfs/smb-share:server=pentos-smb.ad.hcl.harvard.edu,share=digilab/TEST/COMSTOCK/CharlieHebdo/CH_round_3/Pictures - Charlie Archives - October 2015/"
     error_log = data_source + "consent_copy_error_log.txt"
@@ -31,21 +31,26 @@ def main():
         origdir = os.path.dirname(line) #; print "ORIGDIR: " + origdir
         thisOne = origdir
         
-        if lastOne != thisOne and re.search("onsent.*(pdf|doc|PDF|DOC|docx|DOC)",line):
+        if lastOne != thisOne and re.search("onsent.*(pdf|doc|docx)",line,re.IGNORECASE):
 
                 trimline = line.rstrip() ; trimline = re.sub("^\.\/","",trimline) ; trimline = consent_docs_root + trimline
                 origname = re.sub(".*(\/.*\.[a-zA-Z]{3,4})$","\g<1>",line) ; print "ORIG NAME: " + origname
+                origname = origname.rstrip()
                 newdirvalue = captureRootDir(line)
                 newdirvalue = newdirvalue +"/"
-                dest =  drs_staging_path + "license/" + newdirvalue
+                dest =  drs_staging_path + newdirvalue + "license"
+                copypath = dest + origname
                 if not os.path.exists(dest):
                     os.makedirs(dest)            
-                print trimline + "\t" + dest + "\n"
-##                try:
-##                    shutil.copy2(trimline,newdirvalue)
-##                except:
-##                    error = "ERROR copying" + timeline + "\t" + newdirvalue
-##                    f_error_log.write(error)
+                print trimline + "\t" + copypath + "\n"
+                try:
+##                    os.chmod(dest, 777)
+                    shutil.copy2(trimline,copypath)
+                except IOError as detail:
+                    if detail.errno == 95:
+                        pass
+                    error_message = "ERROR: "+ str(detail) + ": " + trimline
+                    f_error_log.write(error_message)
         lastOne = thisOne
                 
     
