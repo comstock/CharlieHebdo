@@ -38,7 +38,7 @@ for line in f_source_data:
     if re.search(".*\/.*\.[a-zA-Z]{3,4}\s/",line):
         sourceFilename = re.sub("(.*\/.*\.[a-zA-Z]{3,4})\s(/.*)$","\g<1>",line); sourceFilename = sourceFilename.rstrip() ; print "SRC : " + sourceFilename
         targetFilename = re.sub("(.*\/.*\.[a-zA-Z]{3,4})\s(/.*)$","\g<2>",line); targetFilename = targetFilename.rstrip() ; print "TARGET : " + targetFilename
-        processline = "exiftool -tagsfromfile " + sourceFilename + " " + targetFilename + " -XMP:format=" ; print "PROC " + processline
+        processline = "exiftool -tagsfromfile \"" + sourceFilename + "\" " + targetFilename + " -XMP:format=" ; print "PROC " + processline
         try:
             subprocess.call([processline], shell=True)
         except IOError as detail:
@@ -47,5 +47,3 @@ for line in f_source_data:
             print e2
     else:
         print "ELSE"
-
-    
