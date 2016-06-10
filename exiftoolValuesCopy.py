@@ -36,39 +36,16 @@ for line in f_source_data:
     line = re.sub("^\.\/","",line)
     line = source_images_path + line ; #print line
     if re.search(".*\/.*\.[a-zA-Z]{3,4}\s/",line):
-        sourceFilename = re.sub("(.*\/.*\.[a-zA-Z]{3,4})\s/.*$","\g<1>",line); print "SRC : " + sourceFilename
-    
-##    exiftool WID-AFR.jpg -tagsfromfile @ -srcfile WID-AFR.tif -XMP:format=TIFF
-    
-    
-##    fileNamePrefix = re.sub("(.*\/)(.*)\.([a-z]{3,4})$","\g<2>",line) ; print "FILENAME PREFIX = :" + fileNamePrefix
-####    file_dir = source_images_path + line
-##    file_dir = re.sub("(.*\/)(.*)\.([a-z]{3,4})\t.*$","\g<1>",line) ; print "DIR NAME = :" + file_dir
-##    file_ext = re.sub("(.*\/)(.*)\.([a-z]{3,4})\t.*","\g<3>",line) ; print "FILE EXT = :" + file_ext
-##    fileName = file_dir.rstrip() + fileNamePrefix.rstrip() + "." + file_ext.rstrip() ; print fileName
-##    if os.path.isfile(fileName):
-##        processline = "convert -verbose -compress none " + line ; print "PROC " + processline
-##        try:
-##            subprocess.call([processline], shell=True)
-##            os.remove(fileName)
-##        except IOError as detail:
-##            error_message = "ERROR: " + str(detail) + ":\t" + fileName
-##            e2 = error_message ; e2 = str(e2)
-##            print e2
-##    else:
-##        print "ELSE"
-##
-##
-##def imageValidation(sourcefile, dest, masterpath):
-##    logging.basicConfig(filename = img_error_log, level=logging.DEBUG, 
-##                    format='%(message)s:  %(name)s')
-##    logger=logging.getLogger(sourcefile)
-##    try:
-##        im = Image.open(sourcefile)
-##    except IOError as detail:
-##        logger.error(detail)
-##        error_message = "ERROR: " + str(detail) + ":\t" + sourcefile
-##        e2 = error_message ; e2 = str(e2)
-##        return e2
+        sourceFilename = re.sub("(.*\/.*\.[a-zA-Z]{3,4})\s(/.*)$","\g<1>",line); sourceFilename = sourceFilename.rstrip() ; print "SRC : " + sourceFilename
+        targetFilename = re.sub("(.*\/.*\.[a-zA-Z]{3,4})\s(/.*)$","\g<2>",line); targetFilename = targetFilename.rstrip() ; print "TARGET : " + targetFilename
+        processline = "exiftool -tagsfromfile " + sourceFilename + " " + targetFilename + " -XMP:format=" ; print "PROC " + processline
+        try:
+            subprocess.call([processline], shell=True)
+        except IOError as detail:
+            error_message = "ERROR: " + str(detail) + ":\t" + fileName
+            e2 = error_message ; e2 = str(e2)
+            print e2
+    else:
+        print "ELSE"
 
-
+    
