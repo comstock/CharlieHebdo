@@ -2,8 +2,8 @@
 
 import os,sys
 
-dataDirectory = "path/"
-dataFile = dataDirectory + "file"
+dataDirectory = "/run/user/1000/gvfs/smb-share:server=pentos-smb.ad.hcl.harvard.edu,share=digilab/TEST/COMSTOCK/CharlieHebdo/LISTS/"
+dataFile = dataDirectory + "listoftiffs.txt"
 filesNotFound = dataDirectory + "filesNotFound.txt"
 
 f_filesNotFound = open(filesNotFound,'w')
