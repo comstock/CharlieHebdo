@@ -9,9 +9,9 @@ from PIL import ImageCms
 import re
 import logging
 
-data_path = data_path = "/run/user/1000/gvfs/smb-share:server=pentos-smb.ad.hcl.harvard.edu,share=digilab/TEST/COMSTOCK/CharlieHebdo/comstock_notes/scripts/scripted_reports/"
-source_data= data_path + "filenameMapping_TIFF.txt"
-source_images_path = "/run/user/1000/gvfs/smb-share:server=pentos-smb.ad.hcl.harvard.edu,share=digilab/TEST/COMSTOCK/CharlieHebdo/CH_round_3/Pictures - Charlie Archives - October 2015/"
+data_path = data_path = "/run/user/1000/gvfs/smb-share:server=pentos-smb.ad.hcl.harvard.edu,share=digilab/TEST/COMSTOCK/CharlieHebdo/LISTS/"
+source_data= data_path + "filenameMapping.txt"
+source_images_path = "/run/user/1000/gvfs/smb-share:server=pentos-smb.ad.hcl.harvard.edu,share=digilab/TEST/COMSTOCK/CharlieHebdo/july_drs_staging/"
 
 ##data_path = data_path = "/home/comstock/images/convert/"
 ##source_data= data_path + "convert_20160603.txt"
@@ -37,7 +37,9 @@ for line in f_source_data:
     line = source_images_path + line ; #print line
     if re.search(".*\/.*\.[a-zA-Z]{3,4}\s/",line):
         sourceFilename = re.sub("(.*\/.*\.[a-zA-Z]{3,4})\s(/.*)$","\g<1>",line); sourceFilename = sourceFilename.rstrip() ; print "SRC : " + sourceFilename
-        targetFilename = re.sub("(.*\/.*\.[a-zA-Z]{3,4})\s(/.*)$","\g<2>",line); targetFilename = targetFilename.rstrip() ; print "TARGET : " + targetFilename
+        targetFilename = re.sub("(.*\/.*\.[a-zA-Z]{3,4})\s(/.*)$","\g<2>",line) ; targetFilename = targetFilename.rstrip() ;
+        targetFilename = re.sub("(.*\.)[a-zA-Z]{3,4}$","\g<1>",targetFilename)
+        targetFilename = targetFilename + "tif" ; print "TARGET : " + targetFilename
         processline = "exiftool -overwrite_original -tagsfromfile \"" + sourceFilename + "\" \"" + targetFilename + "\" -XMP:format=" ; print "PROC " + processline
         try:
             subprocess.call([processline], shell=True)
