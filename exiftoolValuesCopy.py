@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# Runs argyll utiles to generate appropriately ICC profiled images.
+# copies image technical metadata from source file to derived tiff
 #
 import os
 import subprocess
@@ -9,9 +9,9 @@ from PIL import ImageCms
 import re
 import logging
 
-data_path = data_path = "/run/user/1000/gvfs/smb-share:server=pentos-smb.ad.hcl.harvard.edu,share=digilab/TEST/COMSTOCK/CharlieHebdo/LISTS/"
+data_path = data_path = "/media/comstock/CHARLIE/lists/"
 source_data= data_path + "filenameMapping.txt"
-source_images_path = "/run/user/1000/gvfs/smb-share:server=pentos-smb.ad.hcl.harvard.edu,share=digilab/TEST/COMSTOCK/CharlieHebdo/july_drs_staging/"
+source_images_path = "/media/comstock/CHARLIE/original/" #PATH to the ORIGINAL directory
 
 ##data_path = data_path = "/home/comstock/images/convert/"
 ##source_data= data_path + "convert_20160603.txt"
