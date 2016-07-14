@@ -1,83 +1,58 @@
-import os
-import sys
-import shutil
-
+import os, sys
 import re
+import shutil
+#import PIL
+from PIL import Image
+import logging
 
-def captureRootDir(linefromfile):
-        dir = os.path.dirname(linefromfile)
+def captureRootDir(line):
+        dir = os.path.dirname(line)
         dir = re.sub("^\.\/","",dir)    # remove ./ from line beginning
-        dir = re.sub("\s","_",dir)      # substitute blank spaces with underscores
+        dir = re.sub("[\s\.,\'\`]","_",dir)      # substitute blank spaces, periods, commas, and asterisks with underscores
         dir = re.sub("\/.*","",dir)     # Only capture the first directory name. After the /, delete all.
         return(dir)
 
 def main():
-##    dir_list = "ch_orig_pict_dir_list.txt"
-##    dir_list = "test_files_list.txt"
-    dir_list = "fileList_20160519.txt"
 
-    drs_staging_path = "/run/user/1000/gvfs/smb-share:server=pentos-smb.ad.hcl.harvard.edu,share=digilab/TEST/COMSTOCK/CharlieHebdo/drs_staging/"
-    data_source = "/run/user/1000/gvfs/smb-share:server=pentos-smb.ad.hcl.harvard.edu,share=digilab/TEST/COMSTOCK/CharlieHebdo/comstock_notes/scripts/scripted_reports/"
-    consent_docs_root = "/run/user/1000/gvfs/smb-share:server=pentos-smb.ad.hcl.harvard.edu,share=digilab/TEST/COMSTOCK/CharlieHebdo/CH_round_3/Pictures - Charlie Archives - October 2015/"
-    error_log = data_source + "consent_copy_error_log.txt"
-    dirlist_path = data_source + dir_list #; print dirlist_path
-    copyscript = data_source + "licenseCopyScript.txt"
+    # Variables #
+    dir_seperator = "/" # *NIX
+    drs_staging_path = "/media/comstock/CHARLIE/drs_staging/"
+    global data_path ; data_path = "/media/comstock/CHARLIE/lists/"
+    source_imgs_path = "/media/comstock/CHARLIE/original/"
+    origImg_newImg = data_path + "exifOriginalFilename.txt"
+    filenameMapping = data_path + "filenameMapping.txt"
+    #
+    master_list = data_path + "masterList.txt" ; print "MASTER LIST: " + master_list # The list of all files in the file system
+    licenseList = data_path + "licenseList.txt"
+    licenseDir = "license"
+    licenseFilenameIndicator = "License.pdf"
+    global img_error_log ; img_error_log = data_path + "imageErrors.txt"
+    global head ; head = "BLAH HEAD"
+    global tail ; tail = "BLAH TAIL"
+    global error_message ; error_message = "BLAH ERROR"
+    global convert_script ; convert_script = "BLAH CONVERT"
+    global origNameCopy ; origNameCopy = "BLAH ORIG NAME COPY STRING"
+    global origImgName ; origImgName = "BLAH ORIG NAME"
+    global filenameMappingText; filenameMappingText = "BLAH filenameMappingText"
 
-    f_dirlist_path = open(dirlist_path,'r')
-    f_error_log = open(error_log,'w')
-    f_copyscript = open(copyscript,'w')
-    
-    lastOne = "BLAH LAST ONE"
-    thisOne = "BLAH THIS ONE"
-    
-    for line in f_dirlist_path:
-        origdir = os.path.dirname(line) #; print "ORIGDIR: " + origdir
-        thisOne = origdir
+    f_licenseList = open(licenseList,'r')
+
+    for line in f_licenseList:
+        if re.search(licenseFilenameIndicator,line):
+            dirvalue = captureRootDir(line)
+            head,tail = os.path.split(line)
+            tail = tail.rstrip()
+            licenseSource = re.sub("^.","",line) ; licenseSource = licenseSource.rstrip()
+            licenseSource = source_imgs_path + line.rstrip()
+            licensePath = drs_staging_path + dirvalue + dir_seperator + licenseDir
+            licenseDest = drs_staging_path + dirvalue + dir_seperator + licenseDir + dir_seperator + tail ; print "LICENSE DEST: " + licenseDest
+            if not os.path.exists(licensePath):
+                os.makedirs(licensePath)
+            try:
+                shutil.copy2(licenseSource,licenseDest) # copy license to "license" dir
+            except OSError as e:
+                if e.errno == 95:
+                    pass        
         
-        if lastOne != thisOne and re.search("onsent.*(pdf)",line,re.IGNORECASE):
-
-                trimline = line.rstrip() ; trimline = re.sub("^\.\/","",trimline) ; trimline = consent_docs_root + trimline
-                origname = re.sub(".*(\/.*\.[a-zA-Z]{3,4})$","\g<1>",line) ; print "ORIG NAME: " + origname
-                origname = origname.rstrip()
-                newdirvalue = captureRootDir(line)
-                newdirvalue = newdirvalue +"/"
-                dest =  drs_staging_path + newdirvalue + "license"
-                copypath = dest + origname
-                if not os.path.exists(dest):
-                    os.makedirs(dest)            
-                print trimline + "\t" + dest + "\n"
-                copyscriptText = "cp " + trimline + "\t" + dest + "\n"
-                f_copyscript.write(copyscriptText)              
-                try:
-                    shutil.copy2(trimline,copypath)
-                except OSError as detail:
-                    if detail.errno == 95:
-                        pass
-                    error_message = "ERROR: "+ str(detail) + ": " + trimline
-                    f_error_log.write(error_message)
-        elif lastOne != thisOne and re.search("onsent.*(doc|docx)",line,re.IGNORECASE):
-
-                trimline = line.rstrip() ; trimline = re.sub("^\.\/","",trimline) ; trimline = consent_docs_root + trimline
-                origname = re.sub(".*(\/.*\.[a-zA-Z]{3,4})$","\g<1>",line) ; print "ORIG NAME: " + origname
-                origname = origname.rstrip()
-                newdirvalue = captureRootDir(line)
-                newdirvalue = newdirvalue +"/"
-                dest =  drs_staging_path + newdirvalue + "license"
-                copypath = dest + origname
-                if not os.path.exists(dest):
-                    os.makedirs(dest)            
-                print trimline + "\t" + copypath + "\n"
-                copyscriptText = "cp " + trimline + "\t" + copypath + "\n"
-                f_copyscript.write(copyscriptText)
-                try:
-                    shutil.copy2(trimline,copypath)
-                except OSError as detail:
-                    if detail.errno == 95:
-                        pass
-                    error_message = "ERROR: "+ str(detail) + ": " + trimline
-                    f_error_log.write(error_message)
-        lastOne = thisOne
-                
-    
 if __name__ == "__main__":
     main()
