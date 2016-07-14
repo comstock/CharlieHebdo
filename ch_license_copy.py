@@ -23,9 +23,13 @@ def main():
     filenameMapping = data_path + "filenameMapping.txt"
     #
     master_list = data_path + "masterList.txt" ; print "MASTER LIST: " + master_list # The list of all files in the file system
-    licenseList = data_path + "licenseList.txt"
+##    licenseList = data_path + "licenseList.txt"
+    licenseList = master_list
     licenseDir = "license"
-    licenseFilenameIndicator = "License.pdf"
+    global licenseFilenameIndicator ; licenseFilenameIndicator = "Licens.*\.pdf"
+    compiled_icenseFilenameIndicator = re.compile(licenseFilenameIndicator)
+    
+    
     global img_error_log ; img_error_log = data_path + "imageErrors.txt"
     global head ; head = "BLAH HEAD"
     global tail ; tail = "BLAH TAIL"
@@ -38,7 +42,7 @@ def main():
     f_licenseList = open(licenseList,'r')
 
     for line in f_licenseList:
-        if re.search(licenseFilenameIndicator,line):
+        if re.search(compiled_icenseFilenameIndicator,line):
             dirvalue = captureRootDir(line)
             head,tail = os.path.split(line)
             tail = tail.rstrip()
