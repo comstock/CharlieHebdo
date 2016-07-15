@@ -62,7 +62,11 @@ def main():
     ##        processline = line ; print "PROC " + processline
             try:
                 subprocess.call([processline], shell=True)
-                os.remove(sourceFileName)
+                if not os.path.isfile(targetFileName): # TROUBLE? LOOK HERE!!!!!!!!!!!
+                    os.remove(sourceFileName)
+                else:
+                    tiffCreateError = targetFileName + " NOT CREATED! [convert_to_tiff.py] \n"
+                    f_error_log.write(tiffCreateError)
             except IOError as detail:
                 error_message = "ERROR: " + str(detail) + ":\t" + sourceFileName
                 e2 = error_message ; e2 = str(e2)
