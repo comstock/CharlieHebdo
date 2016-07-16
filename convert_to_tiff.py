@@ -59,6 +59,7 @@ def main():
             print "HERE"
 ##            processline = "convert -verbose -compress none " + sourceFileName + " -flatten -depth 8 " + targetFileName ; print "PROC " + processline
             processline = "convert -verbose -compress none " + sourceFileName + " -alpha remove -alpha off -flatten -depth 8 " + targetFileName ; print "PROC " + processline
+##            processline = "mogrify -verbose -depth 8 -set colorspace rgb -compress none  -format tif -alpha remove " + sourceFileName
     ##        processline = line ; print "PROC " + processline
             try:
                 subprocess.call([processline], shell=True)
