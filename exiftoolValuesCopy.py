@@ -9,10 +9,9 @@ from PIL import ImageCms
 import re
 import logging
 
-data_path = data_path = "/media/comstock/CHARLIE/lists/"
+data_path = data_path = "/media/comstock/Transcend/charliehebdo/docs/"
 source_data= data_path + "filenameMapping.txt"
-source_images_path = "/media/comstock/CHARLIE/original/" #PATH to the ORIGINAL directory
-
+source_images_path = "/media/comstock/Transcend/charliehebdo/original/Pictures - Charlie Archives - October 2015/"
 ##data_path = data_path = "/home/comstock/images/convert/"
 ##source_data= data_path + "convert_20160603.txt"
 
