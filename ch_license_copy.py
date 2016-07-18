@@ -16,13 +16,13 @@ def main():
 
     # Variables #
     dir_seperator = "/" # *NIX
-    drs_staging_path = "/media/comstock/CHARLIE/drs_staging/"
-    global data_path ; data_path = "/media/comstock/CHARLIE/lists/"
-    source_imgs_path = "/media/comstock/CHARLIE/original/"
+    drs_staging_path = "/media/comstock/Transcend/charliehebdo/do_not_enter/"
+    global data_path ; data_path = "/home/comstock/DIGILAB/TEST/charliehebdo/docs/"
+    source_imgs_path = "/media/comstock/Transcend/charliehebdo/original/Pictures - Charlie Archives - October 2015/"
     origImg_newImg = data_path + "exifOriginalFilename.txt"
     filenameMapping = data_path + "filenameMapping.txt"
     #
-    master_list = data_path + "masterList.txt" ; print "MASTER LIST: " + master_list # The list of all files in the file system
+    master_list = data_path + "masterList_20160715.txt" ; print "MASTER LIST: " + master_list # The list of all files in the file system
 ##    licenseList = data_path + "licenseList.txt"
     licenseList = master_list
     licenseDir = "license"
