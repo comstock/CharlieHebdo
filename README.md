@@ -9,6 +9,10 @@ To Dos
 * Since I added the ImageMagick commands to one of the outputed files, I need to edit the convert\_to\_tiff.py script so the commands aren't duplicated or (better), I should remove the ImageMagick commands from the main script and only apply them with the _convert_ script.
 * Should I leave instructions for generating text diagrams of file systems using the Tree utility?
 * Nicole Mills Oral History directory includes two bitonal TIFF images -- scans of her license pages (or something like that). Should I go to the trouble of discluding bitonal TIFFs, or just delete this "oral history" directory manually, from the staging area, BEFORE RUNNING THE CONVERT TO TIFF script?
+* Manually convert the bitonal or multipage TIFFs found in the tiff-error log file.
+* Should we delete the Nicole --oral directory? Those TIFFs are bitonal documents. IF we do delete this directory we should manually make a note of this within the noProcessing.txt file.
+* Change TIFF creation error message "Non-standard" to something better
+* Figure out what all the images produced are corrupt and add logic to check for corruption.
 
 >> script that runs over targeted list of image files, and makes lists of any bitonal,  not RGB, or not 24-bit?
 
@@ -52,6 +56,7 @@ Update the programs internal variables and run  [fileRenameMapping.py](https://g
 * Delimited list of all of the original filenames \tab new filenames.
 * Shell script that can be used to embed the original filename into the renamed image file name Exif metadata.
 * Shell script that can be used to generate TIFF images from the assorted images file types found in the "deliverable" directories. ImageMagick is used to generate the TIFF files. This script is best called from [convert\_to\_tiff.py](https://github.com/comstock/CharlieHebdo/blob/master/convert_to_tiff.py) which also deletes the source image used to generate the TIFF, and it generates an error log.
+* I should fix and test the error logging for each script. The QC script would be a good one to experiment with.
 
 Step Three
 ---------------
@@ -75,6 +80,8 @@ QC images:
          feh --cycle-once --no-menus --preload --recursive --slideshow-delay 3 --draw-exif --scale-down --filelist ~/DIGILAB/TEST/COMSTOCK/CharlieHebdo/LISTS/images.txt
          
          feh --list --recursive --quiet * > ../LISTS/feh_listing_qc.txt
+         
+         feh --list --recursive --quiet * | grep deliverable > ../docs/feh_listing_qc.txt
 
 
 Step Seven
