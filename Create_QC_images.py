@@ -9,9 +9,9 @@ from PIL import ImageCms
 import re
 import logging
 
-data_path = data_path = "/run/user/1000/gvfs/smb-share:server=pentos-smb.ad.hcl.harvard.edu,share=digilab/TEST/COMSTOCK/CharlieHebdo/comstock_notes/scripts/scripted_reports/"
-source_data= data_path + "filenameMapping_TIFF.txt"
-source_images_path = "/run/user/1000/gvfs/smb-share:server=pentos-smb.ad.hcl.harvard.edu,share=digilab/TEST/COMSTOCK/CharlieHebdo/CH_round_3/Pictures - Charlie Archives - October 2015/"
+data_path = data_path = "/media/comstock/Transcend/charliehebdo/docs/"
+source_data= data_path + "filenameMapping.txt"
+source_images_path = "/media/comstock/Transcend/charliehebdo/original/Pictures - Charlie Archives - October 2015/"
 
 ##data_path = data_path = "/home/comstock/images/convert/"
 ##source_data= data_path + "convert_20160603.txt"
