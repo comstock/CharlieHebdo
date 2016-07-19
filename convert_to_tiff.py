@@ -24,25 +24,28 @@ def main():
     for line in f_source_data:
         sourceFileName = re.sub("^(.*)(\t.*)","\g<1>", line) ; sourceFileName = sourceFileName.rstrip() ; print "sourceFileName: " + sourceFileName
         targetFileName = re.sub("^(.*)(\t.*)","\g<2>", line) ; targetFileName = targetFileName.rstrip() ; print "targetFileName: " + targetFileName
+        file, ext = os.path.splitext(sourceFileName); print "EXT: " + ext
         if os.path.isfile(sourceFileName): # Does source file exist in the file system?
             print "HERE"
+            if ext != ".tif":
 ##            processline = "convert -verbose -compress none " + sourceFileName + " -flatten -depth 8 " + targetFileName ; print "PROC " + processline
-            processline = "convert -verbose -compress none " + sourceFileName + " -alpha remove -alpha off -flatten -depth 8 " + targetFileName ; print "PROC " + processline
+                processline = "convert -verbose -compress none " + sourceFileName + " -alpha remove -alpha off -flatten -depth 8 " + targetFileName ; print "PROC " + processline
 ##            processline = "mogrify -verbose -depth 8 -set colorspace rgb -compress none  -format tif -alpha remove " + sourceFileName
     ##        processline = line ; print "PROC " + processline
-            try:
-                subprocess.call([processline], shell=True)
-                if not os.path.isfile(targetFileName): # TROUBLE? LOOK HERE!!!!!!!!!!!
-                    os.remove(sourceFileName)
-                else:
-                    tiffCreateError = targetFileName + " NOT CREATED! [convert_to_tiff.py] \n"
-                    f_error_log.write(tiffCreateError)
-            except IOError as detail:
-                error_message = "ERROR: " + str(detail) + ":\t" + sourceFileName
-                e2 = error_message ; e2 = str(e2)
-                print e2
-        else:
-            print "ELSE"
+                try:
+                    subprocess.call([processline], shell=True)
+                    if not os.path.isfile(targetFileName): # TROUBLE? LOOK HERE!!!!!!!!!!!
+                        os.remove(sourceFileName)
+                    else:
+                        tiffCreateError = targetFileName + " NOT CREATED! [convert_to_tiff.py] \n"
+                        f_error_log.write(tiffCreateError)
+                except IOError as detail:
+                    error_message = "ERROR: " + str(detail) + ":\t" + sourceFileName
+                    e2 = error_message ; e2 = str(e2)
+                    print e2
+                    f_error_log.write(e2)
+            else:
+                print "ELSE"
             
 if __name__ == "__main__":
     main()
