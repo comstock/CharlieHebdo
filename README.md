@@ -5,24 +5,15 @@ Charlie Hebdo collection processing log
 To Dos
 ======
 * Claud Maudoux has two licenses, and one file needs to be associated with one file and the other two need to be associated with the other. This is a batch deposit that will require handwork from Ming.
-* Can this set of notes / instructions be copied to GitHub, where the CharlieHebdo repository is made public, and the functions are cleaned up, commented better, and renamed noting the sequence with which each is run, and where references to Harvard server names are deleted.
-* Since I added the ImageMagick commands to one of the outputed files, I need to edit the convert\_to\_tiff.py script so the commands aren't duplicated or (better), I should remove the ImageMagick commands from the main script and only apply them with the _convert_ script.
-* Should I leave instructions for generating text diagrams of file systems using the Tree utility?
-* Nicole Mills Oral History directory includes two bitonal TIFF images -- scans of her license pages (or something like that). Should I go to the trouble of discluding bitonal TIFFs, or just delete this "oral history" directory manually, from the staging area, BEFORE RUNNING THE CONVERT TO TIFF script?
+
+> * Claude_Maudoux_License_1.pdf is a license for photographs: Claude_Maudoux_image_001.tif and Claude_Maudoux_image_001.tif
+
+> * Claude_Maudoux_License_2.pdf is a license for drawing: Claude_Maudoux_image_003.tif
+
 * Manually convert the bitonal or multipage TIFFs found in the tiff-error log file.
 * Should we delete the Nicole --oral directory? Those TIFFs are bitonal documents. IF we do delete this directory we should manually make a note of this within the noProcessing.txt file.
-* Change TIFF creation error message "Non-standard" to something better
-* Figure out what all the images produced are corrupt and add logic to check for corruption.
 
->> script that runs over targeted list of image files, and makes lists of any bitonal,  not RGB, or not 24-bit?
-
-* Ugh. Now we have multipage TIFFs, and I have to find a way to deal with those. Need a script to identify multipage TIFFs in deliverable directories, and to break each up into a sequence of single image tiffs, and then delete the multipage tiff found in the deliverables directory.
-
-        Convert -scene 0 abc.tif abc_%d.tif
->> [If we provide a different number, then the suffix will start with that number. For example if we mention *-scene 100* then the first image name will abc_100.tif.](http://www.techthali.org/imagemagick-splitting-multi-page-tiff-to-single-page-but-first-image-name-suffix-is-not-zero/)
-
-
-* What lists do I need?
+* What lists do we need?
 
 > * List of all of the files in the original file system: **masterList.txt**
 * List of all of the files targeted for processing: **processingList.txt**
@@ -31,18 +22,16 @@ To Dos
 * Exif script file for embedding original filename within the newly named files Exif metadata: **exifOriginalFilename.txt**
 * List of image processing errors and anomalies: **imageErrors.txt**
  
-Step One
+1.
 ---------------
  Generate a list of all of the files in the collection file system. From within the root directory of the collection, execute the command:
  
         find . -type f > list\_of\_all\_files.txt
 
-> Somewhere I need to run [a script to look for multi-page tiff images](https://github.com/comstock/CharlieHebdo/blob/master/createListmultipageTIFFS.sh), manually or by script convert them to single image scripts, replace the mulitpage images with replacement single image tiffs ** in the source directory **, regenerate a master list of files, and repeat _Step One_.
-
-Step Two
+2.
 -------------
 
-Update the programs internal variables and run  [fileRenameMapping.py](https://github.com/comstock/fileWrangling/blob/master/fileRenameMapping.py) which generates re-organized, renamed, and reformatted copies of the collection, tuned and staged for DRS depositing. 
+Update the programs internal variables and run  [fileRenameMapping.py](https://github.com/comstock/CharlieHebdo/blob/master/02_fileRenameMapping.py) which generates re-organized, renamed, and reformatted copies of the collection, tuned and staged for DRS depositing. 
 
 * Targets specific image file formats: TIFF, JPEG, PNG
 * Replaces periods, spaces, hyphens in directory names with underscores
@@ -58,38 +47,39 @@ Update the programs internal variables and run  [fileRenameMapping.py](https://g
 * Shell script that can be used to generate TIFF images from the assorted images file types found in the "deliverable" directories. ImageMagick is used to generate the TIFF files. This script is best called from [convert\_to\_tiff.py](https://github.com/comstock/CharlieHebdo/blob/master/convert_to_tiff.py) which also deletes the source image used to generate the TIFF, and it generates an error log.
 * I should fix and test the error logging for each script. The QC script would be a good one to experiment with.
 
-Step Three
+3.
 ---------------
-Generate the TIFF images using [convert\_to\_tiff.py](https://github.com/comstock/CharlieHebdo/blob/master/convert_to_tiff.py)
+[Copy licenses](https://github.com/comstock/CharlieHebdo/blob/master/03_ch_license_copy.py) (all in PDF format) to "license" directory in DRS staging area
 
-Step Four
+
+4.
+-----------
+Generate the TIFF images using [convert\_to\_tiff.py](https://github.com/comstock/CharlieHebdo/blob/master/04_convert_to_tiff.py)
+
+5.
 -------------
-Embed the TIFF images with the image technical metadata found in the source images by running [exiftoolValuesCopy.py](https://github.com/comstock/CharlieHebdo/blob/master/exiftoolValuesCopy.py)
+Embed the TIFF images with the image technical metadata found in the source images by running [exiftoolValuesCopy.py](https://github.com/comstock/CharlieHebdo/blob/master/05_exiftoolValuesCopy.py)
 
-Step Five
+6.
 -------------
 Embed newly created, new named TIFF images with the original filename:
 
-        exiftool -overwrite_original -OriginalFileName="What's-the-fuck-par-Jo'-Graffies-2.jpg"/Jo_Graffies/deliverable/Jo_Graffies_image_001.tif
+        exiftool -overwrite_original -OriginalFileName="What's-the-fuck-par-Jo'-Graffies-2.jpg" /Jo_Graffies/deliverable/Jo_Graffies_image_001.tif
 
-Step Six
---------
 
-QC images:
+Quality control
+---------------
+The following will initiate a slideshow of images, which is probably not that useful
 
          feh --cycle-once --no-menus --preload --recursive --slideshow-delay 3 --draw-exif --scale-down --filelist ~/DIGILAB/TEST/COMSTOCK/CharlieHebdo/LISTS/images.txt
          
-         feh --list --recursive --quiet * > ../LISTS/feh_listing_qc.txt
+The following generates a text table of files found in the "deliverable" directories, including notations of images with ALPHA channels
+
          
          feh --list --recursive --quiet * | grep deliverable > ../docs/feh_listing_qc.txt
 
 
-Step Seven
--------------
-* Generate a "license" directory within each donor directory.
-* Copy license file from source collection file system to the appropriate license directory using [ch\_license\_copy.py](https://github.com/comstock/CharlieHebdo/blob/master/ch_license_copy.py)
-
-Step Eight
+8.
 -----------
 
 Turn over DRS staged files to DRS depositing agent (e.g., Imaging Services).  The depositing agent will generate JPEG2000 files from the provided TIFF files, generate the DRS batch XML file, and will transfer the files in batches to DRS.
