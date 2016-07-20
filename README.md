@@ -1,4 +1,4 @@
-Charlie Hebdo collection processing log
+eCharlie Hebdo collection processing log
 ================================
 [comment]: # (The following is written in MarkDown and can be converted to HTML using http://daringfireball.net/projects/markdown/dingus . At least that was possible in June 2016. There also seem to be many tools for generating PDFs from MarkDown.)
 
@@ -21,15 +21,18 @@ To Dos
 * List mapping original filenames to new filenames: **filenameMapping.txt**
 * Exif script file for embedding original filename within the newly named files Exif metadata: **exifOriginalFilename.txt**
 * List of image processing errors and anomalies: **imageErrors.txt**
+
+## Processing sequence
+------------------------------------
  
 1.
----------------
+-----
  Generate a list of all of the files in the collection file system. From within the root directory of the collection, execute the command:
  
         find . -type f > list\_of\_all\_files.txt
 
 2.
--------------
+------
 
 Update the programs internal variables and run  [fileRenameMapping.py](https://github.com/comstock/CharlieHebdo/blob/master/02_fileRenameMapping.py) which generates re-organized, renamed, and reformatted copies of the collection, tuned and staged for DRS depositing. 
 
@@ -48,27 +51,27 @@ Update the programs internal variables and run  [fileRenameMapping.py](https://g
 * I should fix and test the error logging for each script. The QC script would be a good one to experiment with.
 
 3.
----------------
+-----
 [Copy licenses](https://github.com/comstock/CharlieHebdo/blob/master/03_ch_license_copy.py) (all in PDF format) to "license" directory in DRS staging area
 
 
 4.
------------
+-----
 Generate the TIFF images using [convert\_to\_tiff.py](https://github.com/comstock/CharlieHebdo/blob/master/04_convert_to_tiff.py)
 
 5.
--------------
+-----
 Embed the TIFF images with the image technical metadata found in the source images by running [exiftoolValuesCopy.py](https://github.com/comstock/CharlieHebdo/blob/master/05_exiftoolValuesCopy.py)
 
 6.
--------------
+-----
 Embed newly created, new named TIFF images with the original filename:
 
         exiftool -overwrite_original -OriginalFileName="What's-the-fuck-par-Jo'-Graffies-2.jpg" /Jo_Graffies/deliverable/Jo_Graffies_image_001.tif
 
 
 Quality control
----------------
+---------------------
 The following will initiate a slideshow of images, which is probably not that useful
 
          feh --cycle-once --no-menus --preload --recursive --slideshow-delay 3 --draw-exif --scale-down --filelist ~/DIGILAB/TEST/COMSTOCK/CharlieHebdo/LISTS/images.txt
@@ -78,8 +81,7 @@ The following generates a text table of files found in the "deliverable" directo
          
          feh --list --recursive --quiet * | grep deliverable > ../docs/feh_listing_qc.txt
 
-
 8.
------------
+-----
 
 Turn over DRS staged files to DRS depositing agent (e.g., Imaging Services).  The depositing agent will generate JPEG2000 files from the provided TIFF files, generate the DRS batch XML file, and will transfer the files in batches to DRS.
