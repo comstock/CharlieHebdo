@@ -2,7 +2,7 @@
 
 import os,sys
 
-dataDirectory = "/run/user/1000/gvfs/smb-share:server=pentos-smb.ad.hcl.harvard.edu,share=digilab/TEST/COMSTOCK/CharlieHebdo/LISTS/"
+dataDirectory = "/TEST/COMSTOCK/CharlieHebdo/LISTS/"
 dataFile = dataDirectory + "listoftiffs.txt"
 filesNotFound = dataDirectory + "filesNotFound.txt"
 
