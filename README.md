@@ -10,8 +10,7 @@ To Dos
 
 > * Claude_Maudoux_License_2.pdf is a license for drawing: Claude_Maudoux_image_003.tif
 
-* Manually convert the bitonal or multipage TIFFs found in the tiff-error log file.
-* Should we delete the Nicole --oral directory? Those TIFFs are bitonal documents. IF we do delete this directory we should manually make a note of this within the noProcessing.txt file.
+* If atypical TIFF files fail conversion to JP2 (see: ./docs/files\_with\_alpha\_channels.txt), these files will have to be specially processed.
 
 * What lists do we need?
 
