@@ -47,8 +47,7 @@ Update the programs internal variables and run  [fileRenameMapping.py](https://g
 * List of all of the image files skipped over because they were identified as corrupted via PIL image.open.
 * Delimited list of all of the original filenames \tab new filenames.
 * Shell script that can be used to embed the original filename into the renamed image file name Exif metadata.
-* Shell script that can be used to generate TIFF images from the assorted images file types found in the "deliverable" directories. ImageMagick is used to generate the TIFF files. This script is best called from [convert\_to\_tiff.py](https://github.com/comstock/CharlieHebdo/blob/master/convert_to_tiff.py) which also deletes the source image used to generate the TIFF, and it generates an error log.
-* I should fix and test the error logging for each script. The QC script would be a good one to experiment with.
+* [convert\_to\_tiff.py](https://github.com/comstock/CharlieHebdo/blob/master/convert_to_tiff.py) converts non-TIFF images to TIFF format, and also deletes the source image used to generate "deliverable" image.
 
 3.
 -----
