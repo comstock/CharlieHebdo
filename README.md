@@ -29,7 +29,7 @@ To Dos
 -----
  Generate a list of all of the files in the collection file system. From within the root directory of the collection, execute the command:
  
-        find . -type f > list\_of\_all\_files.txt
+        find . -type f > list_of_all_files.txt
 
 2.
 ------
