@@ -70,10 +70,6 @@ Embed newly created, new named TIFF images with the original filename:
 
 Quality control
 ---------------------
-The following will initiate a slideshow of images, which is probably not that useful
-
-         feh --cycle-once --no-menus --preload --recursive --slideshow-delay 3 --draw-exif --scale-down --filelist ~/DIGILAB/TEST/COMSTOCK/CharlieHebdo/LISTS/images.txt
-         
 The following generates a text table of files found in the "deliverable" directories, including notations of images with ALPHA channels
 
          
