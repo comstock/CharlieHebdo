@@ -1,4 +1,4 @@
-eCharlie Hebdo collection processing log
+Charlie Hebdo collection processing log
 ================================
 [comment]: # (The following is written in MarkDown and can be converted to HTML using http://daringfireball.net/projects/markdown/dingus . At least that was possible in June 2016. There also seem to be many tools for generating PDFs from MarkDown.)
 
