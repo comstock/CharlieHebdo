@@ -47,7 +47,7 @@ Update the programs internal variables and run  [fileRenameMapping.py](https://g
 * List of all of the image files skipped over because they were identified as corrupted via PIL image.open.
 * Delimited list of all of the original filenames \tab new filenames.
 * Shell script that can be used to embed the original filename into the renamed image file name Exif metadata.
-* [convert\_to\_tiff.py](https://github.com/comstock/CharlieHebdo/blob/master/convert_to_tiff.py) converts non-TIFF images to TIFF format, and also deletes the source image used to generate "deliverable" image.
+* [convert\_to\_tiff.py](https://github.com/comstock/CharlieHebdo/blob/master/04_convert_to_tiff.py) converts non-TIFF images to TIFF format, and also deletes the source image used to generate "deliverable" image.
 
 3.
 -----
