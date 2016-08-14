@@ -101,7 +101,5 @@ Turn over DRS staged files to DRS depositing agent (e.g., Imaging Services).  Th
 * Use Grep to filter (discard) all but fields that include "GPS".
 * If file includes "GPS" exif entries, write the filename out to a list, e.g., "images_with_GPS_data.txt".
 
-        exiftool -if '$GPSlatitude ne ""' -filename  -quiet R0010813.JPG >> "~/images_with_gps_data.txt"
-        
         exiftool -if '$GPSlatitude ne ""' -filename -recurse -quiet -dir /media/comstock/Transcend/charliehebdo/drs_staging/* >> ~/images_with_gps_data.txt
 
