@@ -67,10 +67,8 @@ Embed newly created, new named TIFF images with the original filename:
 
         exiftool -overwrite_original -OriginalFileName="What's-the-fuck-par-Jo'-Graffies-2.jpg" /Jo_Graffies/deliverable/Jo_Graffies_image_001.tif
 
-7.
+7. **Quality control**
 -----
-
-### Quality control
 
 7.a
 -----
