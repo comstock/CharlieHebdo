@@ -90,3 +90,18 @@ DRS deposit
 -----
 
 Turn over DRS staged files to DRS depositing agent (e.g., Imaging Services).  The depositing agent will generate JPEG2000 files from the provided TIFF files, generate the DRS batch XML file, and will transfer the files in batches to DRS.
+
+# How do we find images with internal GPS data?
+
+## Using Exiftool
+
+* list of all files within a file system that might include image files.
+* list of file types to interogate, looking for GPS data.
+* Have exiftool return a complete record for the current image file.
+* Use Grep to filter (discard) all but fields that include "GPS".
+* If file includes "GPS" exif entries, write the filename out to a list, e.g., "images_with_GPS_data.txt".
+
+        exiftool -if '$GPSlatitude ne ""' -filename  -quiet R0010813.JPG >> "~/images_with_gps_data.txt"
+        
+        exiftool -if '$GPSlatitude ne ""' -filename -recurse -quiet -dir /media/comstock/Transcend/charliehebdo/drs_staging/* >> ~/images_with_gps_data.txt
+
