@@ -67,13 +67,23 @@ Embed newly created, new named TIFF images with the original filename:
 
         exiftool -overwrite_original -OriginalFileName="What's-the-fuck-par-Jo'-Graffies-2.jpg" /Jo_Graffies/deliverable/Jo_Graffies_image_001.tif
 
+7.
+-----
 
-Quality control
----------------------
+### Quality control
+
+7.a
+-----
+
 The following generates a text table of files found in the "deliverable" directories, including notations of images with ALPHA channels
 
          
          feh --list --recursive --quiet * | grep deliverable > ../docs/feh_listing_qc.txt
+
+7.b
+-----
+
+Run [xtra_filenampping2csv.py](https://github.com/comstock/CharlieHebdo/blob/master/xtra_filenampping2csv.py) to generate a delimited text file that maps the originally provided filename to the name of the file deposited to DRS.
 
 8.
 -----
