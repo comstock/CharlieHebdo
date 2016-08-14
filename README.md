@@ -71,6 +71,7 @@ Quality control
 -----
 
 7.a
+-----
 
 The following generates a text table of files found in the "deliverable" directories, including notations of images with ALPHA channels
 
@@ -78,8 +79,12 @@ The following generates a text table of files found in the "deliverable" directo
          feh --list --recursive --quiet * | grep deliverable > ../docs/feh_listing_qc.txt
 
 7.b
+-----
 
 Run [xtra_filenampping2csv.py](https://github.com/comstock/CharlieHebdo/blob/master/xtra_filenampping2csv.py) to generate a delimited text file that maps the originally provided filename to the name of the file deposited to DRS.
+
+DRS deposit
+-----
 
 8.
 -----
