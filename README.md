@@ -100,3 +100,7 @@ Using Exiftool to find all files within a directory that include  a "GPSlatitude
 To generate a CSV-format listing of files and associated coordinates:
 	
 		exiftool -recurse -csv -gpslatitude -gpslongitude *.tif > charlieGPS.csv
+		
+To generate a file that maps OSN to URN from the DRS deposit report.
+		
+		 awk '{print "http://nrs.harvard.edu/"$2"\t"$5}' Fabien_B6167982090676897383.txt > gps_urn.txt
