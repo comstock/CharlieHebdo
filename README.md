@@ -97,3 +97,6 @@ Using Exiftool to find all files within a directory that include  a "GPSlatitude
         
         exiftool -if '$GPSlatitude ne ""' -filename -recurse -quiet -dir /media/comstock/Transcend/charliehebdo/drs_staging/* >> ~/images_with_gps_data.txt
 
+To generate a CSV-format listing of files and associated coordinates:
+	
+		exiftool -recurse -csv -gpslatitude -gpslongitude *.tif > charlieGPS.csv
