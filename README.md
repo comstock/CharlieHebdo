@@ -23,17 +23,17 @@ To Dos
 
 ## Processing sequence
 ------------------------------------
- 
+
 1.
 -----
  Generate a list of all of the files in the collection file system. From within the root directory of the collection, execute the command:
- 
+
         find . -type f > list_of_all_files.txt
 
 2.
 ------
 
-Update the programs internal variables and run  [fileRenameMapping.py](https://github.com/comstock/CharlieHebdo/blob/master/02_fileRenameMapping.py) which generates re-organized, renamed, and reformatted copies of the collection, tuned and staged for DRS depositing. 
+Update the programs internal variables and run  [fileRenameMapping.py](https://github.com/comstock/CharlieHebdo/blob/master/02_fileRenameMapping.py) which generates re-organized, renamed, and reformatted copies of the collection, tuned and staged for DRS depositing.
 
 * Targets specific image file formats: TIFF, JPEG, PNG
 * Replaces periods, spaces, hyphens in directory names with underscores
@@ -75,7 +75,7 @@ Quality control
 
 The following generates a text table of files found in the "deliverable" directories, including notations of images with ALPHA channels
 
-         
+
          feh --list --recursive --quiet * | grep deliverable > ../docs/feh_listing_qc.txt
 
 7.b
@@ -94,15 +94,15 @@ Turn over DRS staged files to DRS depositing agent (e.g., Imaging Services).  Th
 # How do we find images with internal GPS data?
 
 Using Exiftool to find all files within a directory that include  a "GPSlatitude" metadata value and write the filename out to a list, e.g., "images_with_GPS_data.txt".
-        
+
         exiftool -if '$GPSlatitude ne ""' -filename -recurse -quiet -dir /media/comstock/Transcend/charliehebdo/drs_staging/* >> ~/images_with_gps_data.txt
 
 To generate a CSV-format listing of files and associated coordinates:
-	
+
 		exiftool -recurse -csv -gpslatitude -gpslongitude *.tif > charlieGPS.csv
-		
+
 To generate a file that maps OSN to URN from the DRS deposit report.
-		
+
 		 awk '/JP2/ {print "http://nrs.harvard.edu/"$11"\t"$5}' Fabien_B6167982090676897383.txt > gps_urn.txt
 
-Run CSV file (e.g., charlieGPS.csv) through [decimalDegrees.py](https://github.com/comstock/CharlieHebdo/blob/master/decimalDegrees.py) to convert the location encoding into [Decimal Degrees](https://en.wikipedia.org/wiki/Decimal_degrees), and then run the modified CSV file, and the URN file (e.g., gps_urn.txt) through [URNappend.py](https://github.com/comstock/CharlieHebdo/blob/master/URNappend.py) to produce a CSV file that can be uploaded to [Google Fusion Tables](https://support.google.com/fusiontables/answer/2571232?hl=en) to create a [map showing the locations were the images were captured](https://goo.gl/cXQAcn).
+Run CSV file (e.g., charlieGPS.csv) through [decimalDegrees.py](https://github.com/comstock/CharlieHebdo/blob/master/decimalDegrees.py) to convert the location encoding into [Decimal Degree format](https://en.wikipedia.org/wiki/Decimal_degrees), and then run the modified CSV file and the URN file (e.g., gps_urn.txt) through [URNappend.py](https://github.com/comstock/CharlieHebdo/blob/master/URNappend.py) to produce a CSV file that can be uploaded to [Google Fusion Tables](https://support.google.com/fusiontables/answer/2571232?hl=en) to create a [map showing the locations were the images were captured](https://goo.gl/cXQAcn).
