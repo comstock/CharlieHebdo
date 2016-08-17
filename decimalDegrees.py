@@ -8,7 +8,7 @@ import numpy
 ##outputFile="/home/comstock/DIGILAB/TEST/charliehebdo/docs/charlieHebdoLocationsMappedOUT.csv"
 
 inputFile="/media/comstock/Transcend/images/gps/charlieGPS.csv" # source file produced via:
-                                                                # 	exiftool -recurse -csv -gpslatitude -gpslongitude *.tif > charlieGPS.csv
+                                                                # exiftool -recurse -csv -gpslatitude -gpslongitude *.tif > charlieGPS.csv
                                                                 
 outputFile="/media/comstock/Transcend/images/gps/charlieGPS_OUT.csv"
 
