@@ -103,4 +103,5 @@ To generate a CSV-format listing of files and associated coordinates:
 		
 To generate a file that maps OSN to URN from the DRS deposit report.
 		
-		 awk '{print "http://nrs.harvard.edu/"$2"\t"$5}' Fabien_B6167982090676897383.txt > gps_urn.txt
+		 awk '/JP2/ {print "http://nrs.harvard.edu/"$2"\t"$5}' Fabien_B6167982090676897383.txt > gps_urn.txt
+Run CSV file (e.g., charlieGPS.csv) and URN file (e.g., gps_urn.txt) through [URNappend.py](https://github.com/comstock/ch_dross/blob/master/URNappend.py) to produce a CSV file that can be uploaded to Google Fusion Tables to creat a map showing the locations were the images were captured.
