@@ -91,7 +91,7 @@ DRS deposit
 
 Turn over DRS staged files to DRS depositing agent (e.g., Imaging Services).  The depositing agent will generate JPEG2000 files from the provided TIFF files, generate the DRS batch XML file, and will transfer the files in batches to DRS.
 
-# How do we find images with internal GPS data?
+# How do we find images with internal GPS data and display them on a map to facilitate cataloging?
 
 Using Exiftool to find all files within a directory that include  a "GPSlatitude" metadata value and write the filename out to a list, e.g., "images_with_GPS_data.txt".
 
