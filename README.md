@@ -106,3 +106,8 @@ To generate a file that maps OSN to URN from the DRS deposit report.
 		 awk '/JP2/ {print "http://nrs.harvard.edu/"$11"\t"$5}' Fabien_B6167982090676897383.txt > gps_urn.txt
 
 Run CSV file (e.g., charlieGPS.csv) through [decimalDegrees.py](https://github.com/comstock/CharlieHebdo/blob/master/decimalDegrees.py) to convert the location encoding into [Decimal Degree format](https://en.wikipedia.org/wiki/Decimal_degrees), and then run the modified CSV file and the URN file (e.g., gps_urn.txt) through [URNappend.py](https://github.com/comstock/CharlieHebdo/blob/master/URNappend.py) to produce a CSV file that can be uploaded to [Google Fusion Tables](https://support.google.com/fusiontables/answer/2571232?hl=en) to create a [map showing the locations were the images were captured](https://goo.gl/cXQAcn).
+
+# Extracting "Create Date" image technical metadata from files.
+The exif Create Date field was empty on many of the CH images, but CreateDate values were extracted if available via...
+
+'/charliehebdo/drs_staging$ exiftool -recurse -csv -createdate  -dir . *deliverable*.tif | grep -E '.*tif,[0-9]{4}.*' > ../docs/charlieHebdoCreateDate.csv'
