@@ -110,4 +110,5 @@ Run CSV file (e.g., charlieGPS.csv) through [decimalDegrees.py](https://github.c
 # Extracting "Create Date" image technical metadata from files.
 The exif Create Date field was empty on many of the CH images, but CreateDate values were extracted if available via...
 
-'/charliehebdo/drs_staging$ exiftool -recurse -csv -createdate  -dir . *deliverable*.tif | grep -E '.*tif,[0-9]{4}.*' > ../docs/charlieHebdoCreateDate.csv'
+
+		'/charliehebdo/drs_staging$ exiftool -recurse -csv -createdate  -dir . *deliverable*.tif | grep -E '.*tif,[0-9]{4}.*' > ../docs/charlieHebdoCreateDate.csv'
